@@ -1,16 +1,26 @@
-# counterappblocpackg
-
-A new Flutter project.
-
 ## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+24/08/2025
+1.Streams- Sequence of asynchronous data
+  async* (async generator)->Stream
+  sync*->Iterable
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+  Stream<int> streamData({required int max}) async* {
+    for (int i = 0; i < max; i++) {
+      yield i;
+    }
+  }
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  void sumStreamData(Stream<int> streamData) async {
+    int sum = 0;
+    await for (int val in streamData) {
+      sum = sum + val;
+    }
+    print("Sum is ----$sum");
+  }
+2.Cubit -Simpler form of bloc(Bloc without events)  
+  --emit
+  --onChange()
+  --BlocObserver
+  --addError

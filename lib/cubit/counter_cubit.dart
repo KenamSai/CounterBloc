@@ -1,22 +1,26 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(0);
-
+  CounterCubit({required int initialState}) : super(initialState);
   void increment() {
-    debugPrint("Before---------->> $state");
+    addError(Exception("Error----"),StackTrace.current);
     emit(state + 1);
-    debugPrint("After---------->> $state");
   }
 
   void decrement() {
-    debugPrint("Before---------->> $state");
-    if (state == 0) {
-      return;
+    if (state >= 1) {
+      emit(state - 1);
     }
-    //emit() called only in cubit class
-    emit(state - 1);
-    debugPrint("After---------->> $state");
   }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
+    print("error ---$error, ---- $stackTrace");
+  }
+  // @override
+  // void onChange(Change<int> change) {
+  //   super.onChange(change);
+  //   print(change);
+  // }
 }
