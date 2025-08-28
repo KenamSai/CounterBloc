@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CounterCubit extends Cubit<int> {
   CounterCubit({required int initialState}) : super(initialState);
   void increment() {
-    addError(Exception("Error----"),StackTrace.current);
+    addError("Error----",StackTrace.current);
     emit(state + 1);
   }
 

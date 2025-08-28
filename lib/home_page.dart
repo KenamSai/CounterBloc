@@ -1,3 +1,4 @@
+import 'package:counterappblocpackg/bloc/counter_bloc.dart';
 import 'package:counterappblocpackg/bloc_observer.dart';
 import 'package:counterappblocpackg/cubit/counter_cubit.dart';
 import 'package:flutter/material.dart';
@@ -19,74 +20,92 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final cubit = CounterCubit(initialState: 69);
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:${cubit.state}',
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    cubit.increment();
-                  },
-                  child: Container(
-                    color: Colors.green,
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                  ),
+  Widget build(BuildContext mainContext) {
+    // final cubit = CounterCubit(initialState: 69);
+    // final bloc = CounterBloc();
+    return BlocProvider(
+      create: (context) => CounterBloc(),
+      child: Builder(builder: (ctx) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            title: Text(widget.title),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(
+                  height: 10,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    cubit.decrement();
-                  },
-                  child: Container(
-                    color: Colors.red,
-                    child: const Icon(
-                      Icons.remove,
-                      color: Colors.white,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        print(
+                            "--main ${mainContext.hashCode} ,----${ctx.hashCode}");
+                        // cubit.increment();
+                        ctx.read<CounterBloc>().add(IncrementPressed());
+                      },
+                      child: Container(
+                        color: Colors.green,
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        // cubit.decrement();
+                        ctx.read<CounterBloc>().add(DecrementPressed());
+                      },
+                      child: Container(
+                        color: Colors.red,
+                        child: const Icon(
+                          Icons.remove,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                // StreamBuilder(
+                //   stream: bloc.stream,
+                //   initialData: bloc.state,
+                //   builder: (context, snapshot) {
+                //     if (!snapshot.hasData) {
+                //       return const CircularProgressIndicator();
+                //     }
+                //     return Text(
+                //       'You have pushed the button this many times:${snapshot.data}',
+                //     );
+                //   },
+                // ),
+                BlocBuilder<CounterBloc, int>(
+                  buildWhen: (previous, current) => current % 2 == 0,
+                  builder: (ctx, state) {
+                    return Text(
+                      'You have pushed the button this many times:$state',
+                    );
+                  },
                 )
               ],
-            )
-            // BlocBuilder<CounterBloc, int>(
-            // //    bloc: counterCubit,
-            //     builder: (context, counter) {
-            //       return Text(
-            //         '$counter',
-            //         style: Theme.of(context).textTheme.headlineMedium,
-            //       );
-            //     }),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //     builder: (context) => const IncDec(),
-          //   ),
-          // );
-        },
-        child: const Icon(Icons.navigate_next),
-      ),
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => const IncDec(),
+              //   ),
+              // );
+            },
+            child: const Icon(Icons.navigate_next),
+          ),
+        );
+      }),
     );
   }
 }

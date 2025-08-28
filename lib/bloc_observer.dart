@@ -1,14 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LogBlocObserver extends BlocObserver{
+class LogBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-      print("${bloc.runtimeType} --- ${change}");
+    if (bloc is Cubit) {
+      print("1${bloc.runtimeType} --- ${change}");
+    }
   }
+
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
-        print("${bloc.runtimeType} --- ${error},---- $stackTrace");
+    print("${bloc.runtimeType} --- ${error},---- ${stackTrace}");
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    print("log$transition");
+    super.onTransition(bloc, transition);
   }
 }
