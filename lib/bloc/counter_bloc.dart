@@ -26,11 +26,11 @@ class CounterBloc extends Bloc<CounterEvent, int> {
       emit(state - 1);
     });
   }
-  @override
-  void onTransition(Transition<CounterEvent, int> transition) {
-    print("$transition");
-    super.onTransition(transition);
-  }
+  // @override
+  // void onTransition(Transition<CounterEvent, int> transition) {
+  //   print("$transition");
+  //   super.onTransition(transition);
+  // }
 
   @override
   void onError(Object error, StackTrace stackTrace) {

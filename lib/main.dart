@@ -1,5 +1,6 @@
 import 'package:counterappblocpackg/bloc_observer.dart';
 import 'package:counterappblocpackg/home_page.dart';
+import 'package:counterappblocpackg/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+     // home: const Testing()
+      home:const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

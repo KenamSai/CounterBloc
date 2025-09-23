@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return BlocProvider(
       create: (context) => CounterBloc(),
       child: Builder(builder: (ctx) {
+        //context cannot found bloc as its create after create,but context is of build which is before that
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -83,13 +84,37 @@ class _MyHomePageState extends State<MyHomePage> {
                 //     );
                 //   },
                 // ),
-                BlocBuilder<CounterBloc, int>(
-                  buildWhen: (previous, current) => current % 2 == 0,
-                  builder: (ctx, state) {
-                    return Text(
-                      'You have pushed the button this many times:$state',
+                // BlocBuilder<CounterBloc, int>(
+                //  // buildWhen: (previous, current) => current % 2 == 0,
+                //   builder: (ctx, state) {
+                //     return Text(
+                //       'You have pushed the button this many times:$state',
+                //     );
+                //   },
+                // ),
+                
+                BlocListener<CounterBloc, int>(
+                  listenWhen: (previous, current) =>
+                      previous != current && current % 5 == 0,
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("🎉 Count reached $state"),
+                        duration: const Duration(seconds: 2),
+                      ),
                     );
                   },
+                  child: BlocSelector<CounterBloc, int, int?>(
+                    selector: (count) => count % 2 == 0 ? count : null,
+                    builder: (ctx, count) {
+                      if (count == null) {
+                        return const CircularProgressIndicator();
+                      }
+                      return Text(
+                        'You have pushed the button this many times:$count',
+                      );
+                    },
+                  ),
                 )
               ],
             ),
