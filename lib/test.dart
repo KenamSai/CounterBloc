@@ -11,13 +11,12 @@ class Testing extends StatefulWidget {
 class _TestingState extends State<Testing> {
   Future<void> loadData() async {
     print("Load Data Called");
-    Future.delayed(const Duration(seconds: 5)).then(
+    await Future.delayed(const Duration(seconds: 15)).then(
       (value) {
-        print("5 seconds completed");
+        print("$value seconds completed");
       },
     );
     print("---------------------1");
-  
   }
 
   @override
@@ -28,7 +27,7 @@ class _TestingState extends State<Testing> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () async {
+              onPressed: () {
                 // print("Hello1");
                 // await Future.delayed(const Duration(seconds: 2)).then(
                 //   (value) {
@@ -38,8 +37,11 @@ class _TestingState extends State<Testing> {
 
                 // print("Hello3");
 
-                loadData();
-                print("------Sync-----");
+                //  await loadData();
+                for (int i = 0; i < 500000000; i++) {
+                  double x = i * 3.14159; // heavier operation
+                }
+                print("Done");
               },
               child: const Text("Start Async Task"),
             ),
