@@ -1,7 +1,5 @@
-import 'package:counterappblocpackg/presentation/pages/counter_page.dart';
-import 'package:counterappblocpackg/test.dart';
+import 'package:counterappblocpackg/presentation/pages/list_view_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   // Bloc.observer = LogBlocObserver();
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: CounterPage(),
+      home: const ListViewPage(),
     );
   }
 }

@@ -39,7 +39,7 @@ class _TestingState extends State<Testing> {
 
                 //  await loadData();
                 for (int i = 0; i < 500000000; i++) {
-                  double x = i * 3.14159; // heavier operation
+// heavier operation
                 }
                 print("Done");
               },
