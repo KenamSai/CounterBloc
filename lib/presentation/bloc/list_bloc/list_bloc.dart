@@ -1,5 +1,5 @@
-import 'package:counterappblocpackg/data/models/list_request_model.dart';
-import 'package:counterappblocpackg/domain/entity/reason_entity.dart';
+import 'package:counterappblocpackg/data/models/list_item_request_model.dart';
+import 'package:counterappblocpackg/data/models/list_item_response_model.dart';
 import 'package:counterappblocpackg/domain/useCases/list_use_case.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +9,49 @@ part 'list_state.dart';
 
 class ListBloc extends Bloc<FetchDataEvent, ListState> {
   ListBloc(ListUseCase listUseCase) : super(ListInitial()) {
+    int itemSize = 5;
+    on<FetchNextPage>(
+      (event, emit) async {
+        final currentState = state;
+
+        if (currentState is! ListDataLoaded) return;
+        final newState = ListDataLoaded(currentState.list);
+        emit(newState);
+        await Future.delayed(const Duration(seconds: 2));
+        try {
+          final currentList = currentState.list;
+          final currentLength = currentList.length;
+          List<ListItemResponseModel> reasonList = await listUseCase(
+            request: ListItemRequestModel(
+              iStart: currentLength,
+              iLimit: itemSize,
+            ),
+          );
+          List<ListItemResponseModel> updatedList = [
+            ...currentList,
+            ...reasonList
+          ];
+          emit(
+            ListDataLoaded(updatedList),
+          );
+        } catch (e) {
+          print("--------$e");
+          emit(
+            ListDataError(
+              e.toString(),
+            ),
+          );
+        }
+      },
+    );
     on<GetListEvent>((event, emit) async {
       emit(ListInitial());
       try {
-        List<ReasonEntity> reasonList = await listUseCase(
-          request: event.request,
+        List<ListItemResponseModel> reasonList = await listUseCase(
+          request: ListItemRequestModel(
+            iStart: 0,
+            iLimit: itemSize,
+          ),
         );
         emit(ListDataLoaded(reasonList));
       } catch (e) {
@@ -26,13 +64,7 @@ class ListBloc extends Bloc<FetchDataEvent, ListState> {
       }
     });
     add(
-      GetListEvent(
-        ReasonRequest(
-          sessionToken: "9479e7ee1352951896963c344ae46261",
-          userId: "7036266270",
-          webServiceName: "getReasons",
-        ),
-      ),
+      GetListEvent(),
     );
   }
 }

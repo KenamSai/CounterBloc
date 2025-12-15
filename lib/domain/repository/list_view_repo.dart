@@ -1,6 +1,6 @@
-import 'package:counterappblocpackg/data/models/list_request_model.dart';
-import 'package:counterappblocpackg/domain/entity/reason_entity.dart';
+import 'package:counterappblocpackg/data/models/list_item_request_model.dart';
+import 'package:counterappblocpackg/data/models/list_item_response_model.dart';
 
 abstract class ListViewRepo {
-  Future<List<ReasonEntity>> getListData({required ReasonRequest request});
+  Future<List<ListItemResponseModel>> getListData({required ListItemRequestModel request});
 }

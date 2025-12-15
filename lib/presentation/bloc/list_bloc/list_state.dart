@@ -9,7 +9,7 @@ sealed class ListState extends Equatable {
 final class ListInitial extends ListState {}
 
 final class ListDataLoaded extends ListState {
-  final List<ReasonEntity> list;
+  final List<ListItemResponseModel> list;
   ListDataLoaded(this.list);
   @override
   List<Object> get props => [list];

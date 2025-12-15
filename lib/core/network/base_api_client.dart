@@ -23,7 +23,7 @@ class BaseApiClient {
   }
   final Dio _dioClient = Dio(
     BaseOptions(
-      baseUrl: "https://uat4.cgg.gov.in/WDSC/wdscapi/",
+      baseUrl: "https://jsonplaceholder.typicode.com/",
       connectTimeout: const Duration(seconds: 120),
       receiveTimeout: const Duration(seconds: 120),
       headers: {'Content-Type': "application/json"},
@@ -32,14 +32,14 @@ class BaseApiClient {
       LoggingInterceptor(),
     );
 
-  Future<dynamic> postCall({
+  Future<dynamic> getCall({
     required String endURL,
     required Map<String, dynamic> body,
   }) async {
     try {
-      Response<dynamic> response = await _dioClient.post(
+      Response<dynamic> response = await _dioClient.get(
         endURL,
-        data: body,
+       queryParameters: body
       );
       if (response.statusCode != 200) {
         throw Exception("Something went wrong. Please try again later.");
