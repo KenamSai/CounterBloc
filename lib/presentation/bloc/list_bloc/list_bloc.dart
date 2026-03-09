@@ -15,8 +15,7 @@ class ListBloc extends Bloc<FetchDataEvent, ListState> {
         final currentState = state;
 
         if (currentState is! ListDataLoaded) return;
-        final newState = ListDataLoaded(currentState.list);
-        emit(newState);
+        emit(ListDataLoaded(currentState.list));
         await Future.delayed(const Duration(seconds: 2));
         try {
           final currentList = currentState.list;

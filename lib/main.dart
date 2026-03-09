@@ -16,39 +16,39 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Map<String, dynamic>> usersList = [
-    {
-      'name': 'Saiteja Kenam',
-      'email': 'saiteja1@email.com',
-    },
-    {
-      'name': 'Ravi Kumar',
-      'email': 'ravi2@email.com',
-    },
-    {
-      'name': 'Anita Sharma',
-      'email': 'anita3@email.com',
-    },
-    {
-      'name': 'Priya Reddy',
-      'email': 'priya4@email.com',
-    },
-    {
-      'name': 'Kiran Das',
-      'email': 'kiran5@email.com',
-    },
-  ];
+  // List<Map<String, dynamic>> usersList = [
+  //   {
+  //     'name': 'Saiteja Kenam',
+  //     'email': 'saiteja1@email.com',
+  //   },
+  //   {
+  //     'name': 'Ravi Kumar',
+  //     'email': 'ravi2@email.com',
+  //   },
+  //   {
+  //     'name': 'Anita Sharma',
+  //     'email': 'anita3@email.com',
+  //   },
+  //   {
+  //     'name': 'Priya Reddy',
+  //     'email': 'priya4@email.com',
+  //   },
+  //   {
+  //     'name': 'Kiran Das',
+  //     'email': 'kiran5@email.com',
+  //   },
+  // ];
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        final DatabaseHelper db = DatabaseHelper();
-        db.insertUsersBatch(usersList);
-      },
-    );
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback(
+  //     (timeStamp) {
+  //       final DatabaseHelper db = DatabaseHelper();
+  //       db.insertUsersBatch(usersList);
+  //     },
+  //   );
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      //home: const ListViewPage(),
+      home: const ListViewPage(),
     );
   }
 }

@@ -84,3 +84,23 @@
 
       e.Bloc Listener
          
+
+
+
+
+# CI
+  Developer pushes code to GitHub
+         ↓
+CI Pipeline is triggered automatically
+         ↓
+Code is pulled from repository
+         ↓
+Dependencies are installed
+         ↓
+Code is compiled/built
+         ↓
+Tests run automatically
+         ↓
+Report: ✅ Success or ❌ Failed
+         ↓
+Developers are notified
